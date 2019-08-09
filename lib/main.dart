@@ -93,17 +93,36 @@ class _GotYaState extends State<GotYa>
   }
   _handleShit(int index)
   {
-    setState(() {
-      switch (widget.sampleList[index]) {
-        case "sample":
-          widget.sampleList[index] = "Normal game";
-          break;
-        default:
-          widget.sampleList[index] = "sample";
-      }
-    });
+    // changeToFoo(index);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => gameDetails(context, index))
+    );
+  }
 
-    // int newIndex = index + 1;
-    // print("Button $newIndex pressed");
+  void changeToFoo(int index) {
+    return setState(() {
+    switch (widget.sampleList[index]) {
+      case "sample":
+        widget.sampleList[index] = "Normal game";
+        break;
+      default:
+        widget.sampleList[index] = "sample";
+    }
+  });
+  }
+
+  Widget gameDetails(BuildContext context, int index)
+  {
+    int gameNo = index +1;
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.sampleList[index]),),
+      body: Row(
+        children: <Widget>[
+          Text("Game no: $gameNo", style: TextStyle(fontSize: 25)),
+          Text("Game name:" + widget.sampleList[index])
+        ],
+      )
+    );
   }
 }
